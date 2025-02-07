@@ -29,7 +29,7 @@ where profesores.id_profesor = asignaturas.id_profesor;
 select * from Profesores_Asignarura;
 
 /*5. crea un usuario en base de datos que tenga acceso de consulta a todas las vistas creadas anteriormente*/
-create user Usuario1 identified by 'usuario';
+create user 'Usuario1'@'localhost' identified by 'usuario';
 grant select on Nombre_Apellidos to Usuario1;
 grant select on Alumno_Aisgnatura to Usuario1;
 grant select on Masde100Horas to Usuario1;
