@@ -56,14 +56,16 @@ revoke select on *.* from 'Administrador';
 
 /* 10. Crea un nuevo usuario llamado alumno con la contraseña pass_alum. Explica qué
 ocurre y que debemos hacer para poder crearlos.*/
-create user alumno identified by 'pass_alum';
+create user 'alumno'@'localhost' identified by 'pass_alum';
 
 /* 11. Otorga a este nuevo usuario permiso de conexión y consulta de datos.*/
-create role 'conexion_y_consulta' ;
-grant create, select, update, delete on angela to 'conexion_y_consulta';
-grant 'conexion_y_consulta' to 'alumno';
+create role 'conexion_y_consulta'@'localhost';
+grant create, select, update, delete on angela to 'conexion_y_consulta'@'localhost';
+grant 'conexion_y_consulta'@'localhost' to 'alumno'@'localhost';
 
-set role 'conexion_y_consulta'@'localhost';
+set default role 'conexion_y_consulta'@'localhost' to 'alumno'@'localhost';
+
+set role all;
 
 /* 12. Con el usuario alumno, modifica la tabla alumno creada anteriormente e intenta
 añadir la columna apellidos de tipo Varchar analizando en todo momento lo que
@@ -72,3 +74,4 @@ alter table alumno
 add column Apellidos varchar(50);
 
 /* 13. Elimina al usuario alumno. */
+drop user 'alumno'@'localhost';

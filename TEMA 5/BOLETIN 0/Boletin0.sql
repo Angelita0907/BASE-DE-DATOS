@@ -1,6 +1,4 @@
-USE Instituto;
-
-/*Creé una base de datos para poder realizar los ejercicios ya que no tenía ninguna propia*/
+USE academia;
 
 /*1. Realiza una vista que muestre el nombre y el apellido de todos los alumnos*/
 create view Nombre_Apellidos as select nombre, apellido from instituto.alumnos;
