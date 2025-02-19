@@ -7,4 +7,5 @@ select usuarios.nombre, libros.titulo, prestamos.fecha_prestamo from usuarios, l
 where prestamos.fecha_devolucion is not null;
 
 /*3. Ver cuántos libros ha tomado prestado cada usuario*/
-select usuario.nombre,
+select count(id_prestamo), usuarios.nombre from usuarios, prestamos
+where prestamos.id_usuario = usuarios.id_usuario group by usuarios.id_usuario;
