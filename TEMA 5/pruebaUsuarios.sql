@@ -13,3 +13,7 @@ create role 'simple';
 grant create,select,update,delete on instituto to 'simple';
 grant 'simple' to 'UsuarioSimple';
 show grants for 'simple';
+
+create user 'pedro' identified by '123';
+
+drop user 
