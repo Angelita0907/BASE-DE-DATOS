@@ -89,4 +89,12 @@ select * from alumno where FECHA_NAC like '1985%';
 /*26. Mostrar los datos de los alumnos y además una columna calculada “mes” que
 represente el mes en el que nació el alumno. Además se debe ordenar por dicha
 columna.*/
-select id_alum, dni, nombre, APELLIDOS, FECHA_NAC as Mes, NACIDO_EN from alumno;
+select id_alum, dni, nombre, APELLIDOS, NACIDO_EN, month(FECHA_NAC) as Mes from alumno order by MES ASC;
+
+/*27. Mostrar los datos de los alumnos y además una columna calculada “fecha_de_
+nacimiento” que represente el día en el que nació el alumno con el siguiente formato
+“Nacido el día xx del xx de xxxx”*/
+select id_alum, dni, nombre, APELLIDOS, NACIDO_EN,
+concat("Nacido el dia ", day(FECHA_NAC), " del ", month(fecha_nac), " de ", year(Fecha_nac)) as Fecha_de_Nacimiento from alumno;
+
+/**/
