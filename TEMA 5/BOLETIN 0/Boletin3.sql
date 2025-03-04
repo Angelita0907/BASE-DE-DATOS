@@ -97,4 +97,4 @@ nacimiento” que represente el día en el que nació el alumno con el siguiente
 select id_alum, dni, nombre, APELLIDOS, NACIDO_EN,
 concat("Nacido el dia ", day(FECHA_NAC), " del ", month(fecha_nac), " de ", year(Fecha_nac)) as Fecha_de_Nacimiento from alumno;
 
-/**/
+/*28. */
