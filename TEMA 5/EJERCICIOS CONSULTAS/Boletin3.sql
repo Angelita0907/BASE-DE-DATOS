@@ -97,4 +97,33 @@ nacimiento” que represente el día en el que nació el alumno con el siguiente
 select id_alum, dni, nombre, APELLIDOS, NACIDO_EN,
 concat("Nacido el dia ", day(FECHA_NAC), " del ", month(fecha_nac), " de ", year(Fecha_nac)) as Fecha_de_Nacimiento from alumno;
 
-/*28. */
+/*28. Mostrar el nombre, apellidos y la edad de los alumnos*/
+select nombre, apellidos, concat(year(current_date) - year(fecha_nac)) as Edad from alumno; 
+
+/*29. Mostrar los datos de los alumnos y además una columna calculada “dias_vividos”
+que represente los días que lleva vivido el alumno hasta la fecha de hoy.*/
+select id_alum, dni,nombre, apellidos, concat(current_date - fecha_nac) as Dias_vividos from alumno; 
+
+/*30. Mostrar el nombre y apellidos de los 4 alumnos con mayor edad.*/
+select nombre, apellidos from alumno order by concat(year(current_date) - year(fecha_nac)) desc limit 4;
+
+/*31. Contar el número de alumnos que hay en el centro educativo*/
+select count(nombre) as TotalAlumnos from alumno;
+
+/*32. Contar el número de profesores nacidos en la provincia 2 (Sevilla) que hay en el
+centro educativo.*/
+select count(nombre) as TotalAlumnos from profesor where nacido_en = 2;
+
+/*33. Mostrar la nota2 más alta de todas */
+select max(nota2) from matriculado;
+
+/*34. Mostrar la nota1 más baja de la asignatura 1 (Redes)*/
+select min(nota1) from matriculado where id_asig = 1;
+
+/*35. Mostrar el sumatorio de todas las notas1 de la asignatura 1*/
+select sum(nota1) from matriculado where id_asig = 1;
+
+/*36. Mostrar la suma de todas las notas1 de la asignatura 1 (Redes) fabricando una
+columna llamada suma. Además, se deben añadir 2 columnas más que se
+correspondan con el número de notas1 existentes y con el valor de la nota media*/
+select sum(nota1) as Suma, count(nota1) as NotasExistentes, avg(nota1) as Nota1Media from matriculado where id_asig = 1;
