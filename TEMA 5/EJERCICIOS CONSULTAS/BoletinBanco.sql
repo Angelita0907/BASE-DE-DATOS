@@ -54,7 +54,8 @@ select upper(nombre), year(fecha_nacimiento) from cliente;
 
 /*16. Muestra un mensaje de felicitación para cada cliente, del tipo “¡Felicidades NOMBRE
 por tus AÑOS cumpleaños!” y llama a ese campo felicitación*/
-select concat('¡Felicidades ', nombre, ' por tus ', fecha_nacimiento - current_date(), ' cumpleaños!') as felicitacion from cliente ;
+select concat('¡Felicidades ', nombre, ' por tus ', year(current_date()) - year(fecha_nacimiento)
+, ' cumpleaños!') as felicitacion from cliente ;
 
 /*17. Muestra aquellos clientes que su edad sea mayor de 18 años y que además su
 nombre o su apellido terminen por S*/
