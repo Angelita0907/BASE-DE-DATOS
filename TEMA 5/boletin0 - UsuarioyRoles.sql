@@ -5,7 +5,7 @@ show grants for 'root'@'localhost';
 /* 2. Creamos un usuario llamado administrador al cual le vamos a conceder todos los
 privilegios. La contraseña de este usuario debe ser pass_admin*/
 create user 'administrador'@'localhost' identified by 'pass_admin';
-grant all privileges on *.* to 'administrador'@'localhost'; 
+grant all privileges on *.*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 to 'administrador'@'localhost'; 
 
 /* 3. Ahora, cerramos sesión y nos conectamos con este nuevo usuario guardando su
 conexión*/

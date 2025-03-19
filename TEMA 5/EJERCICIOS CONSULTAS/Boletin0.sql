@@ -1,3 +1,4 @@
+
 USE academia;
 
 /*1. Realiza una vista que muestre el nombre y el apellido de todos los alumnos*/
@@ -9,8 +10,8 @@ select * from Nombre_Apellidos;
 -- He usado los alias ya que si no da un error por el duplicado en la columna nombre y así poder distingirlos
 create view Alumno_Aisgnatura as SELECT Alumnos.nombre AS Nombre_Alumno, Asignaturas.nombre AS Nombre_Asignatura
 from alumnos, asignaturas, matriculas
-where alumnos.id_alumno = matriculas.id_alumno
-and asignaturas.id_asignatura = matriculas.id_asignatura;
+where alumnos.id = matriculas.alumno_id
+and asignaturas.id= matriculas.asignatura_id;
 
 select * from Alumno_Aisgnatura;
 
