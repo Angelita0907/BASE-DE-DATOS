@@ -69,7 +69,8 @@ set fecha = localtime() where codpie = 'p2';
 
 /*21. Modificar la fecha de adquisición en los que participan los proyectos j1 y j2 a la fecha
 12-11-2001*/
-
+update ventas 
+set fechaAdquisicion = 12-11-2001 where codpj = 'j1' and codpj = 'j2';
 
 /*22. Construir una lista ordenada de todas las ciudades en las que al menos resida un
 proveedor o suministrador, una pieza o un proyecto*/
