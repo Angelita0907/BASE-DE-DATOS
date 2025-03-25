@@ -76,4 +76,48 @@ set fechaAdquisicion = 12-11-2001 where codpj = 'j1' and codpj = 'j2';
 
 /*22. Construir una lista ordenada de todas las ciudades en las que al menos resida un
 proveedor o suministrador, una pieza o un proyecto*/
-select ciudad from proveedor, pieza, proyecto group by ciudad;
+-- select ciudad from proveedor, pieza, proyecto group by ciudad;
+
+select pieza.ciudad from pieza
+join proveedor
+on proveedor.ciudad = pieza.ciudad
+join proyecto
+on proyecto.ciudad = pieza.ciudad;
+
+/*23. Obtener todas las posibles combinaciones entre piezas y proveedores*/
+select * from pieza
+cross join proveedor;
+
+/*24. Obtener todos los posibles tríos de código de proveedor, código de pieza y código de
+proyecto en los que el proveedor, pieza y proyecto estén en la misma ciudad*/
+select pieza.codpie, proveedor.codpro, proyecto.codpj from pieza
+cross join proveedor
+cross join proyecto;
+
+/*25. Obtener los códigos de proveedor, de pieza y de proyecto de aquellos cargamentos
+en los que proveedor, pieza y proyecto estén en la misma ciudad.*/
+select pieza.codpie, proveedor.codpro, proyecto.codpj from pieza
+join proveedor
+on proveedor.ciudad = pieza.ciudad
+join proyecto
+on proyecto.ciudad = pieza.ciudad;
+
+/*26. Obtener todos los posibles tríos de código de proveedor, código de pieza y código de
+proyecto en los que el proveedor, pieza y proyecto no estén todos en la misma
+ciudad*/
+
+
+/*27. Obtener todos los posibles tríos de código de proveedor, código de pieza y código de
+proyecto en los que el proveedor, pieza y proyecto no están ninguno en la misma
+ciudad*/
+-- mirar el fallo
+select pieza.codpie, proveedor.codpro, proyecto.codpj from pieza
+right outer join proveedor
+on proveedor.ciudad = pieza.ciudad
+right outer join proyecto
+on proyecto.ciudad = pieza.ciudad
+left outer join pieza
+on pieza.cuidad = proyecto.ciudad;
+
+/*28. Obtener los códigos de las piezas suministradas por proveedores de Londres.*/
+
