@@ -112,13 +112,41 @@ proyecto en los que el proveedor, pieza y proyecto no están ninguno en la misma
 ciudad*/
 -- mirar el fallo
 select pieza.codpie, proveedor.codpro, proyecto.codpj from pieza
-right outer join proveedor
-on proveedor.ciudad = pieza.ciudad
-right outer join proyecto
-on proyecto.ciudad = pieza.ciudad
-left outer join pieza
-on pieza.cuidad = proyecto.ciudad;
+join proveedor
+on proveedor.ciudad != pieza.ciudad
+join proyecto
+on proyecto.ciudad != pieza.ciudad;
 
 /*28. Obtener los códigos de las piezas suministradas por proveedores de Londres.*/
+-- select codpie from pieza where ciudad = (select codpro from proveedor where ciudad = 'Londres');
+select pieza.codpie from pieza
+join ventas
+on ventas.codpie = pieza.codpie
+join proveedor
+on proveedor.codpro = ventas.codpro
+where proveedor.ciudad = 'Londres';
 
--- 
+/*29. Obtener los códigos de las piezas suministradas por proveedores de Londres a
+proyectos en Londres*/
+-- cambiar 
+select pieza.codpie from pieza
+join ventas
+on ventas.codpie = pieza.codpie
+join proveedor
+on proveedor.codpro = ventas.codpro
+where proveedor.ciudad = 'Londres';
+
+/*30. Obtener todos los pares de nombres de ciudades en las que un proveedor de la
+primera sirva a un proyecto de la segunda*/
+select proveedor.ciudad from  proveedor
+join proyecto
+on proyecto.ciudad = proveedor.ciudad;
+
+/*31. Obtener códigos de piezas que sean suministradas a un proyecto por un proveedor
+de la misma ciudad del proyecto*/
+/*select pieza.codpie from pieza
+join ventas
+on ventas.codpie = pieza.codpie
+join proyecto
+on proyecto.ciudad = proveedor.ciudad;*/
+select ventas.codpie from ventas, ( );
