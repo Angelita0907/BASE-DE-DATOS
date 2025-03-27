@@ -149,4 +149,121 @@ join ventas
 on ventas.codpie = pieza.codpie
 join proyecto
 on proyecto.ciudad = proveedor.ciudad;*/
-select ventas.codpie from ventas, ( );
+select pieza.codpie from pieza, proveedor
+join proyecto
+on proyecto.ciudad = proveedor.ciudad;
+
+/*32. Obtener códigos de proyectos que sean suministrados por un proveedor de una
+ciudad distinta a la del proyecto. Visualizar el código de proveedor y el del proyecto.*/
+-- terminar
+select proveedor.codpro, proyecto.codpj from proveedor, proyecto
+join proveedor
+on proveedor.ciudad = proyecto.ciudad;
+
+/*33. Obtener todos los pares de códigos de piezas suministradas por el mismo
+proveedor.*/
+select pieza.codpie from pieza, ventas
+join proveedor
+on proveedor.codpro = ventas.codpro;
+
+/*34. Obtener todos los pares de códigos de piezas suministradas por el mismo proveedor
+(eliminar pares repetidos).*/
+select distinct pieza.codpie from pieza, ventas
+join proveedor
+on proveedor.codpro = ventas.codpro;
+
+/*35. Obtener para cada pieza suministrada a un proyecto, el código de pieza, el código
+de proyecto y la cantidad total correspondiente.*/
+select ventas.codpie, ventas.codpro, ventas.cantidad from ventas;
+
+/*36. Obtener los códigos de proyectos y los códigos de piezas en los que la cantidad
+media suministrada a algún proyecto sea superior a 320.*/
+select ventas.codpj, ventas.codpie from ventas where cantidad > 320;
+
+/*37. Obtener un listado ascendente de los nombres de todos los proveedores que hayan
+suministrado una cantidad superior a 100 de la pieza p1. Los nombres deben
+aparecer en mayúsculas.*/
+select upper(nompro) from proveedor where codpro in (select codpro from ventas where codpie = 'P1' and cantidad >100)
+order by nompro asc;
+
+/*38. Obtener los nombres de los proyectos a los que suministra s1.*/
+select nompj from proyecto where codpj in (select codpj from ventas where codpro = 's1' );
+
+/*39. Obtener los colores de las piezas suministradas por s1.*/
+select color from pieza where codpie in (select codpie from ventas where codpro = 's1');
+
+/*40. Obtener los códigos de las piezas suministradas a cualquier proyecto de Londres.*/
+select codpie from ventas where codpj in (select codpj from proyecto where ciudad = 'Londres');
+
+/*41. Obtener los códigos de los proveedores con estado menor que el proveedor con
+código s1.*/
+
+
+/*42. Obtener los códigos de los proyectos que usen la pieza pl en una cantidad media
+mayor que la mayor cantidad en la que cualquier pieza sea suministrada al proyecto
+j1.*/
+
+
+/*43. Obtener códigos de proveedores que suministren a algún proyecto la pieza p1 en
+una cantidad mayor que la cantidad media en la que se suministra la pieza p1 a
+dicho proyecto.*/
+select codpj, avg(cantidad) from ventas where codpie = 'P1' group by codpj;
+
+/*44. Obtener los códigos de los proyectos que usen al menos una pieza suministrada por s1.*/
+select codpj from proyecto where codpj in (select codpj from ventas where codpro = 's1');
+
+/*45. Obtener los códigos de los proveedores que suministren al menos una pieza
+suministrada al menos por un proveedor que suministre al menos una pieza roja.*/
+-- terminar
+select codpro from proveedor where codpro in (select codpro from ventas);
+
+/*46. Obtener los códigos de las piezas suministradas a cualquier proyecto de Londres
+usando EXISTS.*/
+select codpie from ventas where exists (select codpro from proveedor where ciudad = 'Londres');
+
+/*47. Obtener los códigos de los proyectos que usen al menos una pieza suministrada por
+s1 usando EXISTS.*/
+select codpj from proyecto where exists (select codpj from ventas where codpro = 's1' );
+
+/*48. Obtener los códigos de los proyectos que no reciban ninguna pieza roja suministrada
+por algún proveedor de Londres.*/
+
+
+/*49. Obtener los códigos de los proyectos suministrados únicamente por s1.*/
+select codpj from proyecto where codpj in (select codpj from ventas where codpro = 's1');
+
+/*50. Obtener los códigos de las piezas suministradas a todos los proyectos en Londres.*/
+select codpie from pieza where codpie in 
+(select codpie from ventas where codpro in (select codpro from proveedor where ciudad = 'Londres'));
+
+/*51. Obtener los códigos de los proveedores que suministren la misma pieza a todos los
+proyectos.*/
+
+
+/*52. Obtener los códigos de los proyectos que reciban al menos todas las piezas que
+suministran s1.*/
+select proyecto.codpj from proyecto
+join ventas
+on ventas.codpj = proyecto.codpj
+where codpro = 's1';
+
+/*53. Cambiar el color de todas las piezas rojas a naranja.*/
+update pieza
+set color = 'naranja' where color = 'rojo';
+
+/*54. Borrar todos los proyectos para los que no haya cargamentos.*/
+delete from proyecto where codpj = (select codpj from ventas where cantidad is null);
+
+/*55. Borrar todos los proyectos en Roma y sus correspondientes cargamentos.*/
+
+
+/*56. Insertar un nuevo suministrador s lo en la tabla S. El nombre y la ciudad son 'White'
+y ‘New York' respectivamente. El estado no se conoce todavía.*/
+
+
+/*57. Construir una tabla conteniendo una lista de los códigos de las piezas suministrada.s
+a proyectos en Londres o suministradas por un suministrador de Londres.*/
+
+
+/*58. Construir una tabla conteniendo una lista de los códigos de los proyectos de Londres
+o que tengan algún suministrador de Londres.*/
