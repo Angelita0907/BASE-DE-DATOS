@@ -105,7 +105,12 @@ on proyecto.ciudad = pieza.ciudad;
 /*26. Obtener todos los posibles tríos de código de proveedor, código de pieza y código de
 proyecto en los que el proveedor, pieza y proyecto no estén todos en la misma
 ciudad*/
-
+SELECT V.codpro, V.codpie, V.codpj
+FROM ventas V
+JOIN proveedor P ON V.codpro = P.codpro
+JOIN pieza PI ON V.codpie = PI.codpie
+JOIN proyecto PR ON V.codpj = PR.codpj
+WHERE NOT (P.ciudad = PI.ciudad AND PI.ciudad = PR.ciudad);
 
 /*27. Obtener todos los posibles tríos de código de proveedor, código de pieza y código de
 proyecto en los que el proveedor, pieza y proyecto no están ninguno en la misma
@@ -156,9 +161,11 @@ on proyecto.ciudad = proveedor.ciudad;
 /*32. Obtener códigos de proyectos que sean suministrados por un proveedor de una
 ciudad distinta a la del proyecto. Visualizar el código de proveedor y el del proyecto.*/
 -- terminar
-select proveedor.codpro, proyecto.codpj from proveedor, proyecto
+select distinct ventas.codpro, ventas.codpj from ventas
 join proveedor
-on proveedor.ciudad = proyecto.ciudad;
+on proveedor.codpro = ventas.codpro
+join proyecto
+on proyecto.codpj = ventas.codpj;
 
 /*33. Obtener todos los pares de códigos de piezas suministradas por el mismo
 proveedor.*/
@@ -168,9 +175,10 @@ on proveedor.codpro = ventas.codpro;
 
 /*34. Obtener todos los pares de códigos de piezas suministradas por el mismo proveedor
 (eliminar pares repetidos).*/
-select distinct pieza.codpie from pieza, ventas
-join proveedor
-on proveedor.codpro = ventas.codpro;
+SELECT DISTINCT LEAST(V1.codpie, V2.codpie) AS pieza1, 
+                GREATEST(V1.codpie, V2.codpie) AS pieza2
+FROM ventas V1
+JOIN ventas V2 ON V1.codpro = V2.codpro AND V1.codpie < V2.codpie;
 
 /*35. Obtener para cada pieza suministrada a un proyecto, el código de pieza, el código
 de proyecto y la cantidad total correspondiente.*/
@@ -202,7 +210,11 @@ código s1.*/
 /*42. Obtener los códigos de los proyectos que usen la pieza pl en una cantidad media
 mayor que la mayor cantidad en la que cualquier pieza sea suministrada al proyecto
 j1.*/
-
+SELECT codpj
+FROM ventas
+WHERE codpie = 'P1'
+GROUP BY codpj
+HAVING AVG(cantidad) > (SELECT MAX(cantidad) FROM ventas WHERE codpj = 'J1');
 
 /*43. Obtener códigos de proveedores que suministren a algún proyecto la pieza p1 en
 una cantidad mayor que la cantidad media en la que se suministra la pieza p1 a
@@ -227,7 +239,14 @@ select codpj from proyecto where exists (select codpj from ventas where codpro =
 
 /*48. Obtener los códigos de los proyectos que no reciban ninguna pieza roja suministrada
 por algún proveedor de Londres.*/
-
+SELECT DISTINCT PR.codpj
+FROM proyecto PR
+WHERE NOT EXISTS (
+    SELECT 1 FROM ventas V
+    JOIN proveedor P ON V.codpro = P.codpro
+    JOIN pieza PI ON V.codpie = PI.codpie
+    WHERE PR.codpj = V.codpj AND P.ciudad = 'Londres' AND PI.color = 'Rojo'
+);
 
 /*49. Obtener los códigos de los proyectos suministrados únicamente por s1.*/
 select codpj from proyecto where codpj in (select codpj from ventas where codpro = 's1');
@@ -255,7 +274,7 @@ set color = 'naranja' where color = 'rojo';
 delete from proyecto where codpj = (select codpj from ventas where cantidad is null);
 
 /*55. Borrar todos los proyectos en Roma y sus correspondientes cargamentos.*/
-
+delete from ventas where codpj in (select codpj from proyecto where ciudad = 'Roma');
 
 /*56. Insertar un nuevo suministrador s lo en la tabla S. El nombre y la ciudad son 'White'
 y ‘New York' respectivamente. El estado no se conoce todavía.*/
