@@ -45,7 +45,9 @@ INSERT INTO jugadores (codigo, nombre, procedencia, altura, peso, posicion, nomb
 (7, 'Al Jefferson', 'Prentiss HS', '6-10', 265, 'C-F', 'Timberwolves'),
 (8, 'Mark Madsen', 'Stanford', '6-9', 255, 'C-F', 'Timberwolves'),
 (9, 'Rashard McCants', 'North Carolina', '6-4', 210, 'G', 'Timberwolves'),
-(10, 'Chris Richard', 'Florida', '6-9', 270, 'F', 'Timberwolves');
+(10, 'Chris Richard', 'Florida', '6-9', 270, 'F', 'Timberwolves'),
+(11, 'Gay', 'Homo', '6-2', 240, 'F', 'Terraneitor')
+;
 
 INSERT INTO estadisticas (temporada, jugador, puntos_por_partido, asistencias_por_partido, tapones_por_partido, rebotes_por_partido) VALUES
 ('00/01', 2, 6.2, 1.3, 0.2, 4.2),
@@ -82,3 +84,4 @@ INSERT INTO partidos (codigo, equipo_local, equipo_visitante, puntos_local, punt
 (8, 'Raptors', 'Nets', 101, 129, '98/99'),
 (9, 'Raptors', 'Pistons', 88, 105, '98/99'),
 (10, 'Raptors', 'Cavaliers', 129, 158, '98/99');
+
