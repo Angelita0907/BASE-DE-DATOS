@@ -81,3 +81,12 @@ select case
 end as Felcicitaciones
 from entrenador;
 
+select pokemon.nombre from pokemon, entrenamiento where entrenamiento.ataque is null;
+
+select pokemon.nombre,entrenamiento.habilidad from pokemon,entrenamiento; 
+
+select pokemon.nombre, 
+case
+	when tipo_fuerte then concat(pokemon.nombre,' vence a ', pokemon.nombre)
+    end as Pelea
+from pokemon, vence_a;		
