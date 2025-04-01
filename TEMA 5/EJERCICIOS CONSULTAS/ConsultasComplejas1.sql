@@ -77,12 +77,15 @@ set fechaAdquisicion = 12-11-2001 where codpj = 'j1' and codpj = 'j2';
 /*22. Construir una lista ordenada de todas las ciudades en las que al menos resida un
 proveedor o suministrador, una pieza o un proyecto*/
 -- select ciudad from proveedor, pieza, proyecto group by ciudad;
-
-select pieza.ciudad from pieza
-join proveedor
-on proveedor.ciudad = pieza.ciudad
-join proyecto
-on proyecto.ciudad = pieza.ciudad;
+SELECT DISTINCT ciudad 
+FROM (
+    SELECT ciudad FROM proveedor
+    UNION 
+    SELECT ciudad FROM pieza
+    UNION 
+    SELECT ciudad FROM proyecto
+) AS ciudades
+ORDER BY ciudad ASC;
 
 /*23. Obtener todas las posibles combinaciones entre piezas y proveedores*/
 select * from pieza
@@ -134,7 +137,7 @@ where proveedor.ciudad = 'Londres';
 /*29. Obtener los códigos de las piezas suministradas por proveedores de Londres a
 proyectos en Londres*/
 -- cambiar 
-select pieza.codpie from pieza
+select distinct pieza.codpie from pieza
 join ventas
 on ventas.codpie = pieza.codpie
 join proveedor
@@ -205,7 +208,8 @@ select codpie from ventas where codpj in (select codpj from proyecto where ciuda
 
 /*41. Obtener los códigos de los proveedores con estado menor que el proveedor con
 código s1.*/
-
+SELECT codpro FROM proveedor
+WHERE status < (SELECT status FROM proveedor WHERE codpro = 'S1');
 
 /*42. Obtener los códigos de los proyectos que usen la pieza pl en una cantidad media
 mayor que la mayor cantidad en la que cualquier pieza sea suministrada al proyecto
